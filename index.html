@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+        }
+        #launch-text {
+            font-size: 1.5rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>We will be up</h1>
+        <div id="launch-text"></div>
+    </div>
+
+    <script>
+        const text = ".... soon ....";
+        const launchText = document.getElementById("launch-text");
+        let index = 0;
+
+        function typeText() {
+            if (index < text.length) {
+                launchText.innerHTML += text.charAt(index);
+                index++;
+                setTimeout(typeText, 150);
+            } else {
+                setTimeout(() => {
+                    launchText.innerHTML = "";
+                    index = 0;
+                    typeText();
+                }, 2000);
+            }
+        }
+
+        typeText();
+    </script>
+</body>
+</html>
