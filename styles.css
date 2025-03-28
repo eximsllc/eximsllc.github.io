@@ -1,0 +1,574 @@
+/* ---=== Global Reset & Base Styles ===--- */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #e0e0e0;
+    background: #0f0c29; /* fallback */
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    line-height: 1.6;
+}
+
+/* ---=== Particle Background Container ===--- */
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Behind everything */
+}
+
+/* ---=== Global Styles & Utilities ===--- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    font-family: 'Orbitron', sans-serif; /* Techy font for headings */
+    color: #ffffff;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.5); /* Subtle cyan glow */
+}
+
+h1 { font-size: clamp(2.5rem, 6vw, 4rem); }
+h2 { font-size: clamp(2rem, 5vw, 3rem); text-align: center; margin-bottom: 3rem; }
+h3 { font-size: clamp(1.5rem, 4vw, 2rem); }
+
+section {
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden; /* Clip glows/animations at section bounds if needed */
+}
+
+/* ---=== Animated Gradient Background for Sections (Subtle) ===--- */
+@keyframes subtleGradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+section:nth-of-type(odd) {
+    background: linear-gradient(270deg, rgba(36, 36, 62, 0.8), rgba(48, 43, 99, 0.8), rgba(15, 12, 41, 0.8));
+    background-size: 300% 300%;
+    animation: subtleGradientShift 25s ease infinite;
+}
+section:nth-of-type(even) {
+    background: linear-gradient(90deg, rgba(15, 12, 41, 0.7), rgba(48, 43, 99, 0.7), rgba(36, 36, 62, 0.7));
+    background-size: 300% 300%;
+    animation: subtleGradientShift 20s ease infinite reverse;
+}
+
+
+/* ---=== Header & Navigation ===--- */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 15px 0;
+    background: rgba(10, 8, 25, 0.8);
+    backdrop-filter: blur(10px); /* Glassmorphism effect */
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    transition: background 0.3s ease;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    /* text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; */
+    /* animation: pulseGlow 3s infinite alternate; */
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between text and image */
+}
+
+.logo img {
+    height: 1.8rem;
+    width: auto;
+    filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.7)); /* Subtle glow effect */
+}
+
+@keyframes pulseGlow {
+    from { text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff; }
+    to { text-shadow: 0 0 15px #00ffff, 0 0 25px #00ffff, 0 0 35px #00d9ff; }
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 25px;
+}
+
+nav ul li a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 5px 10px;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #ff00ff, #00ffff);
+    transition: all 0.4s ease;
+    transform: translateX(-50%);
+    opacity: 0;
+    box-shadow: 0 0 8px #ff00ff, 0 0 12px #00ffff;
+}
+
+nav ul li a:hover {
+    color: #fff;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+    opacity: 1;
+}
+
+/* ---=== Hero Section ===--- */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 80px; /* Account for fixed header */
+    position: relative; /* Needed for pseudo-elements */
+    background: none; /* Use body gradient + particles */
+}
+
+.hero::before { /* Top subtle glow border */
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, #00ffff, transparent);
+        opacity: 0.6;
+        animation: scanLine 8s linear infinite;
+}
+
+@keyframes scanLine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+
+.hero-content {
+    max-width: 800px;
+    animation: fadeIn 1.5s ease-out;
+}
+
+.hero h1 {
+    background: linear-gradient(90deg, #ff8a00, #e52e71, #00ffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradientTextAnim 10s linear infinite;
+    background-size: 200% 200%;
+    margin-bottom: 1rem;
+    text-shadow: none; /* Override default H1 glow for gradient effect */
+}
+
+@keyframes gradientTextAnim {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #c0c0c0;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+.cta-button {
+    display: inline-block;
+    background: linear-gradient(45deg, #ff00ff, #00ffff);
+    color: #fff;
+    padding: 15px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.4s ease;
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.6), 0 0 25px rgba(0, 255, 255, 0.6);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    border: none;
+}
+
+.cta-button::before { /* Shine effect */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: skewX(-25deg);
+    transition: left 0.8s ease;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 0 25px rgba(255, 0, 255, 0.8), 0 0 40px rgba(0, 255, 255, 0.8);
+}
+
+.cta-button:hover::before {
+    left: 120%;
+}
+
+/* ---=== About Section ===--- */
+#about {
+    /* Uses default section styling */
+}
+#about p {
+    max-width: 800px;
+    margin: 0 auto 1.5rem auto;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #d0d0d0;
+}
+
+/* ---=== Services Section ===--- */
+#services h2 {
+    /* Default styling */
+}
+
+.services-grid {
+    display: flex;         /* <-- Use Flexbox */
+    flex-wrap: wrap;       /* <-- Allow items to wrap to the next line */
+    justify-content: center;/* <-- Center items horizontally on each line */
+    gap: 30px;             /* <-- Keep the gap between items */
+}
+
+.services-grid .service-card {
+        flex: 1 1 280px; /* Allow grow, allow shrink, base width ~280px */
+        max-width: calc(33.333% - 20px); /* Optional: Limit max width for ~3 columns look on large screens, adjust calc if gap changes */
+        /* Adjust the max-width percentage and calculation based on desired columns and gap */
+        /* E.g., for ~4 columns: calc(25% - 23px) */
+        /* Remove max-width if you prefer them to stretch more */
+}
+
+/* Add a media query for smaller screens if the max-width causes issues */
+@media (max-width: 960px) { /* Adjust breakpoint as needed */
+        .services-grid .service-card {
+            max-width: calc(50% - 15px); /* Example: Aim for 2 columns */
+        }
+}
+    @media (max-width: 600px) { /* Adjust breakpoint as needed */
+        .services-grid .service-card {
+            max-width: 100%; /* Allow full width on small screens */
+            flex-basis: 100%; /* Ensure it takes full width */
+        }
+}
+.service-card {
+    background: rgba(255, 255, 255, 0.05); /* Subtle background */
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden; /* Keep glow effects contained */
+    backdrop-filter: blur(5px);
+}
+
+.service-card::before { /* Corner glow effect */
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 255, 255, 0.15) 0%, rgba(0, 255, 255, 0) 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    animation: rotateGlow 10s linear infinite;
+    z-index: 0;
+}
+
+@keyframes rotateGlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(0, 255, 255, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.service-card:hover::before {
+    opacity: 1;
+}
+
+.service-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+    background: linear-gradient(135deg, #ff00ff, #00ffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.7));
+    transition: transform 0.4s ease;
+}
+
+.service-card:hover .service-icon {
+    transform: scale(1.1) rotateY(180deg);
+}
+
+
+.service-card h3 {
+    margin-bottom: 0.8rem;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.4);
+    position: relative; /* Ensure text is above ::before */
+    z-index: 1;
+}
+
+.service-card p {
+    font-size: 0.95rem;
+    color: #b0b0b0;
+    position: relative; /* Ensure text is above ::before */
+    z-index: 1;
+}
+
+/* ---=== Technology Section ===--- */
+#tech {
+    text-align: center;
+}
+
+#tech p {
+    max-width: 700px;
+    margin: 0 auto 2rem auto;
+    font-size: 1.1rem;
+    color: #d0d0d0;
+}
+
+.tech-highlight {
+    display: inline-block;
+    padding: 8px 15px;
+    margin: 5px;
+    border-radius: 20px;
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    color: #00ffff;
+    font-weight: 600;
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+.tech-highlight:hover {
+    background: rgba(0, 255, 255, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+/* ---=== Contact Section ===--- */
+#contact {
+    padding-bottom: 100px; /* Extra space before footer */
+}
+
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    backdrop-filter: blur(3px);
+}
+
+.contact-form h3, .contact-info h3 {
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #c0c0c0;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    color: #e0e0e0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #00ffff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.submit-button {
+    display: inline-block;
+    background: linear-gradient(45deg, #00ffff, #ff00ff); /* Reversed gradient */
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all 0.4s ease;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.6), 0 0 25px rgba(255, 0, 255, 0.6);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    border: none;
+    cursor: pointer;
+}
+    .submit-button:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 0 25px rgba(0, 255, 255, 0.8), 0 0 40px rgba(255, 0, 255, 0.8);
+    }
+
+
+.contact-info p {
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: #c0c0c0;
+}
+
+.contact-info i {
+    margin-right: 10px;
+    color: #00ffff;
+    width: 20px;
+    text-align: center;
+}
+
+/* ---=== Footer ===--- */
+footer {
+    text-align: center;
+    padding: 25px 0;
+    margin-top: 40px; /* Ensure space above footer */
+    background: rgba(10, 8, 25, 0.9);
+    border-top: 1px solid rgba(0, 255, 255, 0.1);
+    color: #a0a0a0;
+    font-size: 0.9rem;
+}
+
+footer a {
+        color: #00ffff;
+        text-decoration: none;
+}
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* ---=== Animations ===--- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Apply fade-in to sections on scroll (requires JS, basic version) */
+/* More robust implementation would use Intersection Observer */
+section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---=== Responsiveness ===--- */
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+    }
+    nav ul {
+        margin-top: 15px;
+        flex-wrap: wrap; /* Allow nav items to wrap */
+        justify-content: center;
+    }
+    nav ul li {
+        margin: 5px 10px;
+    }
+
+    .hero h1 { font-size: 2.5rem; }
+    .hero p { font-size: 1rem; }
+
+    .services-grid {
+        grid-template-columns: 1fr; /* Stack services */
+    }
+
+    .contact-wrapper {
+        grid-template-columns: 1fr; /* Stack contact form/info */
+        padding: 30px 20px;
+    }
+        .contact-info {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .contact-info p {
+            justify-content: center; /* Center icons and text */
+        }
+
+        h2 { font-size: 1.8rem; }
+        h3 { font-size: 1.3rem; }
+}
